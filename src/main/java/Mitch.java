@@ -10,7 +10,9 @@ public class Mitch {
 
         //Creating Lists
         String[] tasks = new String[100];
+        boolean[] mark = new boolean[100];
         int counter = 0;
+
 
         while (sc.hasNextLine()){
             String line = sc.nextLine().trim();
@@ -22,8 +24,28 @@ public class Mitch {
             if (line.equals("list")){
                 System.out.println(LINE);
                 for(int i = 0; i < counter; i++) {
-                    System.out.println((i + 1) + ". " + tasks[i]);
+                    System.out.println((i + 1) + ". ["+ (mark[i] ? "X" : " ") + "] " + tasks[i]);
                 }
+                System.out.println(LINE);
+                continue;
+            }
+
+            if (line.startsWith("mark ")){
+                int index = Integer.parseInt(line.substring(5).trim()) -1;  //take the number and turn it to index
+                mark[index] = true;  //mark true
+                System.out.println(LINE);
+                System.out.println("Nice! I've marked this task as done:");
+                System.out.println("[" + (mark[index] ? "X" : " ") + "] " + tasks[index]);
+                System.out.println(LINE);
+                continue;
+            }
+
+            if (line.startsWith("unmark ")){
+                int index = Integer.parseInt(line.substring(7).trim()) -1;  //take the number and turn it to index
+                mark[index] = false;  //mark false
+                System.out.println(LINE);
+                System.out.println("OK, I've marked this task as not done yet:");
+                System.out.println("[" + (mark[index] ? "X" : " ") + "] " + tasks[index]);
                 System.out.println(LINE);
                 continue;
             }
