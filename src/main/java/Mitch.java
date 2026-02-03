@@ -56,12 +56,37 @@ public class Mitch {
                 continue;
             }
 
-            tasks[taskCount] = new Task(input);
-            taskCount++;
+            if (input.startsWith("todo ")) {
+                tasks[taskCount] = new ToDo(input);
+                taskCount++;
+                System.out.println(LINE);
+                System.out.println("Got it. I've added this task:");
+                System.out.println(tasks[taskCount - 1]);
+                System.out.println("Now you have " + taskCount + " tasks in the list.");
+                System.out.println(LINE);
+            }
 
-            System.out.println(LINE);
-            System.out.println("added: " + input);
-            System.out.println(LINE);
+            if (input.startsWith("deadline ")) {
+                tasks[taskCount] = new Deadlines(input);
+                taskCount++;
+                System.out.println(LINE);
+                System.out.println("Got it. I've added this task:");
+                System.out.println(tasks[taskCount - 1]);
+                System.out.println("Now you have " + taskCount + " tasks in the list.");
+                System.out.println(LINE);
+            }
+
+            if (input.startsWith("event ")) {
+                tasks[taskCount] = new Events(input);
+                taskCount++;
+                System.out.println(LINE);
+                System.out.println("Got it. I've added this task:");
+                System.out.println(tasks[taskCount - 1]);
+                System.out.println("Now you have " + taskCount + " tasks in the list.");
+                System.out.println(LINE);
+            }
+
+
         }
 
         scanner.close();
