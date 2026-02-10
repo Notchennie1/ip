@@ -1,4 +1,6 @@
-public class Deadlines extends Task{
+package mitch.task;
+
+public class Deadlines extends Task {
     protected String endDate;
 
     public Deadlines(String descriptionAndDeadline){
