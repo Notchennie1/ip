@@ -1,3 +1,10 @@
+package mitch;
+
+import mitch.task.Task;
+import mitch.task.ToDo;
+import mitch.task.Deadlines;
+import mitch.task.Events;
+import mitch.exception.MitchException;
 import java.util.Scanner;
 
 public class Mitch {
@@ -6,7 +13,7 @@ public class Mitch {
 
     public static void main(String[] args) {
         System.out.println(LINE);
-        System.out.println("Hello, I'm Mitch");
+        System.out.println("Hello, I'm mitch.Mitch");
         System.out.println("What can I do for you");
         System.out.println(LINE);
 
@@ -36,11 +43,11 @@ public class Mitch {
                     continue;
                 } else if (input.startsWith("mark ")) {
                     if (input.trim().length() <= 4) {
-                        throw new MitchExceptions("OOPS!!! Please specify which task to mark.");
+                        throw new MitchException("OOPS!!! Please specify which task to mark.");
                     }
                     int index = Integer.parseInt(input.substring(5).trim()) - 1;
                     if (index < 0 || index >= taskCount) {
-                        throw new MitchExceptions("OOPS!!! That task number does not exist.");
+                        throw new MitchException("OOPS!!! That task number does not exist.");
                     }
                     tasks[index].markDone();
 
@@ -51,11 +58,11 @@ public class Mitch {
                     continue;
                 } else if (input.startsWith("unmark ")) {
                     if (input.trim().length() <= 7) {
-                        throw new MitchExceptions("OOPS!!! Please specify which task to unmark.");
+                        throw new MitchException("OOPS!!! Please specify which task to unmark.");
                     }
                     int index = Integer.parseInt(input.substring(7).trim()) - 1;
                     if (index < 0 || index >= taskCount) {
-                        throw new MitchExceptions("OOPS!!! That task number does not exist.");
+                        throw new MitchException("OOPS!!! That task number does not exist.");
                     }
                     tasks[index].unmarkDone();
 
@@ -66,7 +73,7 @@ public class Mitch {
                     continue;
                 } else if (input.startsWith("todo ")) {
                     if (input.trim().length() <= 4) {
-                        throw new MitchExceptions("OOPS!!! The description of a todo cannot be empty.");
+                        throw new MitchException("OOPS!!! The description of a todo cannot be empty.");
                     }
                     tasks[taskCount] = new ToDo(input);
                     taskCount++;
@@ -77,7 +84,7 @@ public class Mitch {
                     System.out.println(LINE);
                 } else if (input.startsWith("deadline ")) {
                     if (input.trim().length() <= 8) {
-                        throw new MitchExceptions("OOPS!!! The description of a deadline cannot be empty.");
+                        throw new MitchException("OOPS!!! The description of a deadline cannot be empty.");
                     }
                     tasks[taskCount] = new Deadlines(input);
                     taskCount++;
@@ -88,7 +95,7 @@ public class Mitch {
                     System.out.println(LINE);
                 } else if (input.startsWith("event ")) {
                     if (input.trim().length() <= 5) {
-                        throw new MitchExceptions("OOPS!!! The description of an event cannot be empty.");
+                        throw new MitchException("OOPS!!! The description of an event cannot be empty.");
                     }
                     tasks[taskCount] = new Events(input);
                     taskCount++;
@@ -98,10 +105,10 @@ public class Mitch {
                     System.out.println("Now you have " + taskCount + " tasks in the list.");
                     System.out.println(LINE);
                 } else {
-                    throw new MitchExceptions("OOPS!!! I'm sorry, but I don't know what that means :-(");
+                    throw new MitchException("OOPS!!! I'm sorry, but I don't know what that means :-(");
 
                 }
-            } catch (MitchExceptions e) {
+            } catch (MitchException e) {
                 System.out.println(LINE);
                 System.out.println(" " + e.getMessage());
                 System.out.println(LINE);

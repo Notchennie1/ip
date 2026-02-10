@@ -1,4 +1,6 @@
-public class Events extends Task{
+package mitch.task;
+
+public class Events extends Task {
     protected String startDate;
     protected String endDate;
 
