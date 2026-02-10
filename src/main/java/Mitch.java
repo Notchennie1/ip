@@ -86,7 +86,6 @@ public class Mitch {
                 System.out.println(LINE);
             }
 
-
         }
 
         scanner.close();
