@@ -87,7 +87,6 @@ public class Mitch {
             }
 
         }
-
         scanner.close();
     }
 }
