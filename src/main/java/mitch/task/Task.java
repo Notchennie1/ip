@@ -29,6 +29,6 @@ public class Task {
     public String toString() {
         int firstIndex = description.indexOf(" ");
         String newDescription = description.substring(firstIndex+1);
-        return "[" + (isDone ? "X" : " ") + "] " + newDescription;
+        return  (isDone ? "1" : "0") + " | " + newDescription;
     }
 }
