@@ -90,7 +90,6 @@ public class Mitch {
         return loadedTasks;
     }
 
-
     public static void main(String[] args) {
         System.out.println(LINE);
         System.out.println("Hello, I'm Mitch");
