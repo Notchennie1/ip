@@ -9,7 +9,6 @@ import mitch.exception.MitchException;
 import java.util.ArrayList;
 
 public class Parser {
-
     public static boolean parseCommand(String input, TaskList tasks, Ui ui, Storage storage) throws MitchException {
         if (input.equals("bye")) {
             ui.showGoodbye();
