@@ -6,6 +6,8 @@ import mitch.task.Deadlines;
 import mitch.task.Events;
 import mitch.exception.MitchException;
 
+import java.util.ArrayList;
+
 public class Parser {
 
     public static boolean parseCommand(String input, TaskList tasks, Ui ui, Storage storage) throws MitchException {
@@ -108,6 +110,26 @@ public class Parser {
             return false;
         }
 
+        if (input.startsWith("find ")) {
+            String keyword = input.substring(5).trim();
+            if (keyword.isEmpty()) {
+                throw new MitchException("OOPS!!! The keyword for find cannot be empty.");
+            }
+
+            ArrayList<Task> matchingTasks = tasks.find(keyword);
+
+            ui.showLine();
+            if (matchingTasks.isEmpty()) {
+                ui.showMessage(" No matching tasks found in your list.");
+            } else {
+                ui.showMessage(" Here are the matching tasks in your list:");
+                for (int i = 0; i < matchingTasks.size(); i++) {
+                    ui.showMessage(" " + (i + 1) + "." + matchingTasks.get(i));
+                }
+            }
+            ui.showLine();
+            return false;
+        }
         throw new MitchException("OOPS!!! I'm sorry, but I don't know what that means :-(");
     }
 
