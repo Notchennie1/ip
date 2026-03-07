@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Storage {git add .
+public class Storage {
     private String filePath;
 
     public Storage(String filePath) {
