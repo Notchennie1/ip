@@ -1,30 +1,55 @@
-# Duke User Guide
+Mitch Chatbot - User Guide
+Mitch is a CLI-based task manager designed for industrial designers and software developers to track project milestones and daily tasks efficiently.
 
-// Update the title above to match the actual product name
+Commands
+1. Adding a ToDo: todo
+   Adds a task without any specific date or time constraint.
 
-// Product screenshot goes here
+Format: todo DESCRIPTION
 
-// Product intro goes here
+Example: todo Research sustainable polymers for gaming mice
 
-## Adding deadlines
+2. Adding a Deadline: deadline
+   Adds a task that must be completed by a specific date or time.
 
-// Describe the action and its outcome.
+Format: deadline DESCRIPTION /by TIME
 
-// Give examples of usage
+Example: deadline Submit Homework /by Monday 5pm
 
-Example: `keyword (optional arguments)`
+3. Adding an Event: event /from /to
+   Adds a task with a specific start and end time.
 
-// A description of the expected outcome goes here
+Format: event DESCRIPTION /from START /to END
 
-```
-expected output
-```
+Example: event project meeting /from Wednesday 2pm /to 4pm
 
-## Feature ABC
+4. Finding Tasks: find
+   Search for existing tasks in your list using a keyword in the description.
 
-// Feature details
+Format: find KEYWORD
 
+Example: find Razer
 
-## Feature XYZ
+5. Listing All Tasks: list
+   Displays every task currently stored in your session.
 
-// Feature details
+Format: list
+
+6. Marking/Unmarking Tasks: mark & unmark
+   Updates the completion status of a specific task using its index number from the list.
+
+Format: mark INDEX or unmark INDEX
+
+Example: mark 1
+
+7. Deleting a Task: delete
+   Permanently removes a task from your list using its index number.
+
+Format: delete INDEX
+
+Example: delete 2
+
+8. Exiting: bye
+   Safely closes the application.
+
+Format: bye
