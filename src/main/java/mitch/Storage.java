@@ -4,11 +4,11 @@ import mitch.task.Task;
 import mitch.task.ToDo;
 import mitch.task.Deadlines;
 import mitch.task.Events;
-import java.util.ArrayList;
-import java.util.Scanner;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Storage {
     private String filePath;
@@ -17,15 +17,16 @@ public class Storage {
         this.filePath = filePath;
     }
 
-    public void save(ArrayList<Task> tasks) {
+    public void save(TaskList tasks) {
         try {
             File f = new File(filePath);
             if (!f.getParentFile().exists()) {
                 f.getParentFile().mkdirs();
             }
             FileWriter fw = new FileWriter(filePath);
-            for (Task task : tasks) {
-                fw.write(task + System.lineSeparator());
+            for (int i = 0; i < tasks.size(); i++) {
+                // Uses toFileFormat() to ensure it saves as "T | 1 | read book"
+                fw.write(tasks.get(i).toFileFormat() + System.lineSeparator());
             }
             fw.close();
         } catch (IOException e) {

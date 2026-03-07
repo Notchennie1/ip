@@ -1,0 +1,121 @@
+package mitch;
+
+import mitch.task.Task;
+import mitch.task.ToDo;
+import mitch.task.Deadlines;
+import mitch.task.Events;
+import mitch.exception.MitchException;
+
+public class Parser {
+
+    public static boolean parseCommand(String input, TaskList tasks, Ui ui, Storage storage) throws MitchException {
+        if (input.equals("bye")) {
+            ui.showGoodbye();
+            return true;
+        }
+
+        if (input.equals("list")) {
+            ui.showLine();
+            for (int i = 0; i < tasks.size(); i++) {
+                ui.showMessage((i + 1) + ". " + tasks.get(i));
+            }
+            ui.showLine();
+            return false;
+        }
+
+        if (input.startsWith("mark ")) {
+            if (input.trim().length() <= 4) {
+                throw new MitchException("OOPS!!! Please specify which task to mark.");
+            }
+            int index = Integer.parseInt(input.substring(5).trim()) - 1;
+            if (index < 0 || index >= tasks.size()) {
+                throw new MitchException("OOPS!!! That task number does not exist.");
+            }
+            tasks.get(index).markDone();
+            storage.save(tasks);
+
+            ui.showLine();
+            ui.showMessage("Nice! I've marked this task as done:");
+            ui.showMessage(tasks.get(index).toString());
+            ui.showLine();
+            return false;
+        }
+
+        if (input.startsWith("unmark ")) {
+            if (input.trim().length() <= 7) {
+                throw new MitchException("OOPS!!! Please specify which task to unmark.");
+            }
+            int index = Integer.parseInt(input.substring(7).trim()) - 1;
+            if (index < 0 || index >= tasks.size()) {
+                throw new MitchException("OOPS!!! That task number does not exist.");
+            }
+            tasks.get(index).unmarkDone();
+            storage.save(tasks);
+
+            ui.showLine();
+            ui.showMessage("OK, I've marked this task as not done yet:");
+            ui.showMessage(tasks.get(index).toString());
+            ui.showLine();
+            return false;
+        }
+
+        if (input.startsWith("todo ")) {
+            if (input.trim().length() <= 4) {
+                throw new MitchException("OOPS!!! The description of a todo cannot be empty.");
+            }
+            tasks.add(new ToDo(input));
+            storage.save(tasks);
+            printAddedTask(tasks, ui);
+            return false;
+        }
+
+        if (input.startsWith("deadline ")) {
+            if (input.trim().length() <= 8) {
+                throw new MitchException("OOPS!!! The description of a deadline cannot be empty.");
+            }
+            tasks.add(new Deadlines(input));
+            storage.save(tasks);
+            printAddedTask(tasks, ui);
+            return false;
+        }
+
+        if (input.startsWith("event ")) {
+            if (input.trim().length() <= 5) {
+                throw new MitchException("OOPS!!! The description of an event cannot be empty.");
+            }
+            tasks.add(new Events(input));
+            storage.save(tasks);
+            printAddedTask(tasks, ui);
+            return false;
+        }
+
+        if (input.startsWith("delete ")) {
+            if (input.trim().length() <= 7) {
+                throw new MitchException("OOPS!!! Please specify which task to delete.");
+            }
+            int index = Integer.parseInt(input.substring(7).trim()) - 1;
+            if (index < 0 || index >= tasks.size()) {
+                throw new MitchException("OOPS!!! That task number does not exist.");
+            }
+            Task removedTask = tasks.remove(index);
+            storage.save(tasks);
+
+            ui.showLine();
+            ui.showMessage(" Noted. I've removed this task:");
+            ui.showMessage("   " + removedTask);
+            ui.showMessage(" Now you have " + tasks.size() + " tasks in the list.");
+            ui.showLine();
+            return false;
+        }
+
+        throw new MitchException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+    }
+
+    private static void printAddedTask(TaskList tasks, Ui ui) {
+        ui.showLine();
+        ui.showMessage("Got it. I've added this task:");
+        ui.showMessage(tasks.get(tasks.size() - 1).toString());
+        ui.showMessage("Now you have " + tasks.size() + " tasks in the list.");
+        ui.showLine();
+    }
+}

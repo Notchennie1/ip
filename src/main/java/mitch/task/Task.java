@@ -31,4 +31,7 @@ public class Task {
         String newDescription = description.substring(firstIndex+1);
         return  (isDone ? "1" : "0") + " | " + newDescription;
     }
+    public String toFileFormat() {
+        return " | " + (isDone ? "1" : "0") + " | " + description;
+    }
 }

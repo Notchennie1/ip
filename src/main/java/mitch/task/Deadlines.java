@@ -12,4 +12,9 @@ public class Deadlines extends Task {
     public String toString() {
         return "D | " + super.toString() + " | " + endDate;
     }
+
+    @Override
+    public String toFileFormat() {
+        return "D | " + (isDone ? "1" : "0") + " | " + description + " | " + endDate;
+    }
 }
