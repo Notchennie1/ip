@@ -10,13 +10,27 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Handles saving tasks to a text file and loading them back when the program starts.
+ */
 public class Storage {
     private String filePath;
 
+    /**
+     * Creates a Storage object with the specified file path.
+     *
+     * @param filePath The location of the file to save/load tasks.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Saves the current list of tasks into the text file.
+     * If the folder or file doesn't exist, it creates them.
+     *
+     * @param tasks The TaskList containing the tasks to save.
+     */
     public void save(TaskList tasks) {
         try {
             File f = new File(filePath);
@@ -25,7 +39,6 @@ public class Storage {
             }
             FileWriter fw = new FileWriter(filePath);
             for (int i = 0; i < tasks.size(); i++) {
-                // Uses toFileFormat() to ensure it saves as "T | 1 | read book"
                 fw.write(tasks.get(i).toFileFormat() + System.lineSeparator());
             }
             fw.close();
@@ -34,6 +47,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Reads the text file and converts the lines back into an ArrayList of tasks.
+     *
+     * @return An ArrayList of tasks loaded from the file.
+     */
     public ArrayList<Task> load() {
         ArrayList<Task> loadedTasks = new ArrayList<>();
         File f = new File(filePath);
